@@ -1,26 +1,19 @@
 version: '3.7'
 services:
-  client:
+  app:
     build:
-      context: ./client
-    expose:
-      - '3000'
-    links:
-      - server
-    ports:
-      - '3000:3000'
-    stdin_open: true
-    volumes:
-      - ./client/src:/app/client/src
-      - ./client/public:/app/client/public
-    command: npm run start
-  server:
-    build:
-      context: ./server
+      context: .
     expose:
       - '8000'
     ports:
       - '8000:8000'
     volumes:
-      - ./server/src:/app/server/src
-    command: npm run dev
+      - /var/run/docker.sock:/var/run/docker.sock
+  mongo:
+    image: mongo
+    ports:
+      - '27017:27017'
+    volumes:
+      - data-volume:/data/db
+volumes:
+  data-volume:

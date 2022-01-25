@@ -1,24 +1,23 @@
 import React from 'react';
-import logo from '../../logo.svg';
+import {Routes, Route} from 'react-router-dom';
 import './App.css';
+import ProvidersWrapper from '../ProvidersWrapper';
+import DynamicConfig from '../../components/DynamicConfig/DynamicConfig';
+import Servers from '../../components/Servers';
+import Layout from '../Layout';
 
 const App = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ProvidersWrapper>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Servers />} />
+            <Route path="dynamic-config" element={<DynamicConfig />} />
+            <Route path="servers" element={<Servers />} />
+          </Route>
+        </Routes>
+      </ProvidersWrapper>
     </div>
   );
 };
